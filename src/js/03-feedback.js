@@ -30,7 +30,7 @@ function onSubmitForm(event) {
     event.preventDefault();
     form.reset();
     localStorage.removeItem(localStorageKey);
-};
+}
 
 
 
