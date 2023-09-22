@@ -1,12 +1,14 @@
-import throttle from 'lodash.throttle';
+import debounce from 'lodash.throttle';
 
 const form = document.querySelector('.feedback-form');
 const localStorageKey = "feedback-form-state";
 
-form.addEventListener('input', onInputForm);
+form.addEventListener('input', debounce(onInputForm, 500));
 form.addEventListener('submit', onSubmitForm);
 
 const savedData = {};
+
+populateData();
 
 function onInputForm(event) {
     if (event.target.value) {
@@ -15,7 +17,6 @@ function onInputForm(event) {
     }
     
 }
-populateData();
 
 function populateData() {
     const storageData = JSON.parse(localStorage.getItem(localStorageKey));
@@ -30,6 +31,7 @@ function populateData() {
 
 function onSubmitForm(event) {
     event.preventDefault();
+    console.log(savedData);
     form.reset();
     localStorage.removeItem(localStorageKey);
 }
